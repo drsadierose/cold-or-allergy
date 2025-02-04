@@ -1,30 +1,53 @@
 <!DOCTYPE html> 
 <html> 
-	<!-- https://www.w3schools.com/w3css/default.asp -->
    <head> 
-      <title>Hello World</title>  
+      <title>Symptom Checker</title>  
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="apple-mobile-web-app-capable" content="yes">
-      <link rel="stylesheet" href="w3.css">
-      <link rel="stylesheet" href="w3-colors-flat.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+      <script>
+        var allergy_count = 0;
+        var cold_count = 0; 
+        var currentQuestion = 1;
+        
+        function allergyAdd(){
+            allergy_count++;
+            navigate();
+        }
+
+        function coldAdd(){
+            cold_count++;
+            navigate();
+        }
+
+        function navigate() {
+            currentQuestion++;
+            if (currentQuestion <= 4) {
+                window.location.href = "q" + currentQuestion + ".html";
+            } else {
+                resultPage();
+            }
+        }
+
+        function resultPage() {
+            window.location.href = "result.html?allergy=" + allergy_count + "&cold=" + cold_count;
+        }
+      </script>
    </head> 
-   
    <body> 
+      <header class="w3-container w3-flat-carrot">
+        <h1>Symptom Checker</h1>
+      </header>
 
-     	<header class="w3-container w3-flat-carrot">
-		<h1>My Hello World App!</h1>
-	</header>
+      <div class="w3-container">
+          <p>Are your eyes watery or itchy?</p>    
+          <button onclick="allergyAdd();" class="w3-btn w3-black">Yes</button>
+          <button onclick="coldAdd();" class="w3-btn w3-black">No</button>
+      </div>
 
-	<div class="w3-container"><!-- place main content here and it will show up between header and footer.-->
-		
-		<p>Hello World! Aaron is here.</p>		
-
-	</div><!-- /content -->
-	
-	<footer class="w3-bottom w3-container w3-flat-carrot">
-		<p>This is the footer!</p>
-	</footer>
-	   
+      <footer class="w3-bottom w3-container w3-flat-carrot">
+        <p>This is the footer!</p>
+      </footer>
    </body>
 </html>
-
