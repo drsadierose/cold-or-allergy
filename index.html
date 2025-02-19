@@ -1,11 +1,23 @@
-<!DOCTYPE html> 
-<html> 
-   <head> 
-      <title>Symptom Checker</title>  
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-flat.css">
+   <body> 
+      <header class="w3-container w3-flat-carrot">
+        <h1>Symptom Checker</h1>
+      </header>
+
+      <div id="quiz-container" class="w3-container">
+          <p id="question-text">Are your eyes watery or itchy?</p> 
+          <button onclick="nextQuestion(true);" class="w3-btn w3-black">Yes</button>
+          <button onclick="nextQuestion(false);" class="w3-btn w3-black">No</button>
+      </div>
+
+      <div id="result-container" class="w3-container" style="display: none;">
+          <h2>Diagnosis</h2>
+          <p id="result-text"></p>
+      </div>
+
+      <footer class="w3-bottom w3-container w3-flat-carrot">
+        <p>This is the footer!</p>
+      </footer>
+
       <script>
         let allergy_count = 0;
         let cold_count = 0; 
@@ -47,25 +59,5 @@
                 `Allergy Probability: ${allergyPercentage}%\nCold Probability: ${coldPercentage}%`;
         }
       </script>
-   </head> 
-   <body> 
-      <header class="w3-container w3-flat-carrot">
-        <h1>Symptom Checker</h1>
-      </header>
-
-      <div id="quiz-container" class="w3-container">
-          <p id="question-text">Are your eyes watery or itchy?</p> 
-          <button onclick="nextQuestion(true);" class="w3-btn w3-black">Yes</button>
-          <button onclick="nextQuestion(false);" class="w3-btn w3-black">No</button>
-      </div>
-
-      <div id="result-container" class="w3-container" style="display: none;">
-          <h2>Diagnosis</h2>
-          <p id="result-text"></p>
-      </div>
-
-      <footer class="w3-bottom w3-container w3-flat-carrot">
-        <p>This is the footer!</p>
-      </footer>
    </body>
 </html>
