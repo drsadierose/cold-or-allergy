@@ -9,29 +9,42 @@
       <script>
         var allergy_count = 0;
         var cold_count = 0; 
-        var currentQuestion = 1;
-        
-        function allergyAdd(){
-            allergy_count++;
-            navigate();
-        }
+        var currentQuestion = 0;
 
-        function coldAdd(){
-            cold_count++;
-            navigate();
-        }
+        var questions = [
+            { text: "Are your eyes watery or itchy?", allergy: true },
+            { text: "Do you have a fever?", allergy: false },
+            { text: "Do you have a sore throat?", allergy: false },
+            { text: "Are your symptoms seasonal or chronic?", allergy: true },
+            { text: "Do your symptoms get worse outside or in certain environments?", allergy: true },
+            { text: "Do you have chills or body aches?", allergy: false }
+        ];
 
-        function navigate() {
-            currentQuestion++;
-            if (currentQuestion <= 6) {
-                window.location.href = "q" + currentQuestion + ".html";
+        function nextQuestion(isAllergy) {
+            if (isAllergy) {
+                allergy_count++;
             } else {
-                resultPage();
+                cold_count++;
+            }
+            
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                document.getElementById("question-text").innerText = questions[currentQuestion].text;
+            } else {
+                showResults();
             }
         }
 
-        function resultPage() {
-            window.location.href = "result.html?allergy=" + allergy_count + "&cold=" + cold_count;
+        function showResults() {
+            let total = allergy_count + cold_count;
+            let allergyPercentage = Math.round((allergy_count / total) * 100);
+            let coldPercentage = 100 - allergyPercentage;
+
+            document.getElementById("quiz-container").style.display = "none";
+            document.getElementById("result-container").style.display = "block";
+            document.getElementById("result-text").innerText = 
+                "Allergy Probability: " + allergyPercentage + "%\nCold Probability: " + coldPercentage + "%";
         }
       </script>
    </head> 
@@ -40,40 +53,15 @@
         <h1>Symptom Checker</h1>
       </header>
 
-      <div class="w3-container">
-          <p>Are your eyes watery or itchy?</p> 
-          <button onclick="allergyAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="coldAdd();" class="w3-btn w3-black">No</button>
+      <div id="quiz-container" class="w3-container">
+          <p id="question-text">Are your eyes watery or itchy?</p> 
+          <button onclick="nextQuestion(true);" class="w3-btn w3-black">Yes</button>
+          <button onclick="nextQuestion(false);" class="w3-btn w3-black">No</button>
       </div>
 
-      <div class="w3-container">
-          <p>Do you have a fever?</p> 
-          <button onclick="coldAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="allergyAdd();" class="w3-btn w3-black">No</button>
-      </div>
-
-      <div class="w3-container">
-          <p>Do you have a sore throat?</p> 
-          <button onclick="coldAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="allergyAdd();" class="w3-btn w3-black">No</button>
-      </div>
-
-      <div class="w3-container">
-          <p>Are your symptoms seasonal or chronic?</p> 
-          <button onclick="allergyAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="coldAdd();" class="w3-btn w3-black">No</button>
-      </div>
-
-      <div class="w3-container">
-          <p>Do your symptoms get worse outside or in certain environments?</p> 
-          <button onclick="allergyAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="coldAdd();" class="w3-btn w3-black">No</button>
-      </div>
-
-      <div class="w3-container">
-          <p>Do you have chills or body aches?</p> 
-          <button onclick="coldAdd();" class="w3-btn w3-black">Yes</button>
-          <button onclick="allergyAdd();" class="w3-btn w3-black">No</button>
+      <div id="result-container" class="w3-container" style="display: none;">
+          <h2>Diagnosis</h2>
+          <p id="result-text"></p>
       </div>
 
       <footer class="w3-bottom w3-container w3-flat-carrot">
